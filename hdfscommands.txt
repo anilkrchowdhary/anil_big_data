@@ -1,2 +1,4 @@
 scp -P 2222 /home/anil/Anil_Created_Docs/"01.02.BID DATA"/PySPark/bse_data/500055.csv cloudera@127.0.0.1:/home/cloudera/anil_data
 
+hadoop fs -copyFromLocal /home/cloudera/anil_data/500055.csv /anil/data
+
