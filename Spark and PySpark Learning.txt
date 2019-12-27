@@ -6,3 +6,29 @@ https://data-flair.training/blogs/spark-tutorial/
 Spark Stage
 ------------
 https://spark.apache.org/docs/1.2.2/api/java/org/apache/spark/scheduler/Stage.html
+
+
+What is Shuffle in Spark?
+http://hydronitrogen.com/apache-spark-shuffles-explained-in-depth.html
+Shuffles are one of the most memory/network intensive parts of most Spark jobs so it's important to understand when they occur and what's going on when you're trying to improve performance.
+
+What is a shuffle?
+Let's start with the most simple case of a non-shuffling RDD. You have an RDD of a text file and you apply a map, followed by a write to disk. For example:
+
+rdd.flatMap {line => line.split(' ') }.saveAsTextFile(outputPath)
+The memory usage of this is actually fairly straightforward. In the case of a text file, it streams the file in, line by line applies your flatMap operation and immediately writes (possibly buffering) it out to disk. Therefore you're not really doing anything terribly memory intensive and Spark doesn't really do anything fancy in terms of coordination. If you have two files on disk that are read in by this application, it will read in the two files (partitions) in parallel and write them out in parallel. No coordination is required and this is what is known as an "embarrassingly parallel" process.
+
+Now we bring a shuffle into the picture. Let's say you create a word count application which consists of a flatMap on that text file, followed by a reduceByKey(). For example:
+
+rdd.flatMap { line => line.split(' ') }.map((_, 1)).reduceByKey((a, b) => a + b).collect()
+For clarity, this splits each line by whitespace, turns each word into a row and each row into a tuple of (word, 1) which then gets aggregated to result in (word, # of occurrences for that word).
+
+In this case, you're actually going to begin by performing the same streaming, parallel map operation that takes place in the previous example, but things get a little more complex after that. In order to count all of the given words which may exist across an entire dataset (with a bunch of partitions) in Spark, each partition must aggregate all the counts of words within that partition, but then it must also sum across parititions. The process of moving the data from partition to partition in order to aggregate, join, match up, or spread out in some other way, is known as shuffling. The aggregation/reduction that takes place before data is moved across partitions is known as a map-side shuffle.
+
+The following operations are examples of shuffle inducing operations for RDDs:
+
+groupBy/subtractByKey/foldByKey/aggregateByKey/reduceByKey
+cogroup
+any of the join transformations
+distinct
+If you think about how you would go about performing those operations, it should intuitively make sense why shuffles are occurring. Just ask yourself: does this operation depend on one or multiple rows? If it depends on multiple rows, assume that you know nothing about the contents of a partition: do you need to look across partitions to match up rows in any way? if the answer to those are both yes, then you likely need a shuffle.
