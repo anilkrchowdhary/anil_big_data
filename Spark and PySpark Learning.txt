@@ -7,6 +7,9 @@ Spark Stage
 ------------
 https://spark.apache.org/docs/1.2.2/api/java/org/apache/spark/scheduler/Stage.html
 
+Spark Tuning Guide
+---------------
+http://spark.apache.org/docs/1.6.1/tuning.html#level-of-parallelism
 
 What is Shuffle in Spark?
 http://hydronitrogen.com/apache-spark-shuffles-explained-in-depth.html
