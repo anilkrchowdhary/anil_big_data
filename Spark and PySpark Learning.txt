@@ -11,6 +11,8 @@ Spark Tuning Guide
 ---------------
 http://spark.apache.org/docs/1.6.1/tuning.html#level-of-parallelism
 
+https://spark.apache.org/docs/latest/rdd-programming-guide.html
+
 What is Shuffle in Spark?
 http://hydronitrogen.com/apache-spark-shuffles-explained-in-depth.html
 Shuffles are one of the most memory/network intensive parts of most Spark jobs so it's important to understand when they occur and what's going on when you're trying to improve performance.
