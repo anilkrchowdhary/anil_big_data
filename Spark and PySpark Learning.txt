@@ -1,3 +1,21 @@
+--Start Pyspark setup
+
+Setup Spark Home
+------------------
+export SPARK_HOME="/home/anil/tools/spark-2.4.4-bin-hadoop2.7"
+export PATH="$SPARK_HOME/bin:$PATH" 
+
+
+setup jupyter for Pyspark
+--------------------------
+export PYSPARK_SUBMIT_ARGS="pyspark-shell"
+export PYSPARK_DRIVER_PYTHON=ipython
+export PYSPARK_DRIVER_PYTHON_OPTS='notebook' pyspark
+
+ 
+--End Pyspark setup
+
+
 Spark Tutorial
 --------------
 https://data-flair.training/blogs/spark-tutorial/
