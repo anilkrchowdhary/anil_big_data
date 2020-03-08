@@ -1,3 +1,5 @@
+https://towardsdatascience.com/explaining-technical-stuff-in-a-non-techincal-way-apache-spark-274d6c9f70e9
+
 https://towardsdatascience.com/adding-sequential-ids-to-a-spark-dataframe-fa0df5566ff6
 
 https://towardsdatascience.com/5-ways-to-add-a-new-column-in-a-pyspark-dataframe-4e75c2fd8c08
