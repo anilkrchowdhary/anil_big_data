@@ -55,3 +55,16 @@ cogroup
 any of the join transformations
 distinct
 If you think about how you would go about performing those operations, it should intuitively make sense why shuffles are occurring. Just ask yourself: does this operation depend on one or multiple rows? If it depends on multiple rows, assume that you know nothing about the contents of a partition: do you need to look across partitions to match up rows in any way? if the answer to those are both yes, then you likely need a shuffle.
+
+
+
+
+
+
+
+Creating a new column to DataFrame in Pyspark:
+The most pysparkish way to create a new column in a PySpark DataFrame is by using built-in functions. This is the most performant programmatical way to create a new column, so this is the first place I go whenever I want to do some column manipulation.
+
+
+
+
